@@ -21,6 +21,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MyViewHolder>(), Filterable
 
     @SuppressLint("NotifyDataSetChanged")
     fun setContent(list: List<GifObject>) {
+        clearContent()
         contentList.addAll(list)
         permanentContentList.addAll(list)
         notifyDataSetChanged()

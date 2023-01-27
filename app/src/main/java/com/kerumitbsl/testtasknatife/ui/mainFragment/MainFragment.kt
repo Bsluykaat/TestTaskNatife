@@ -13,11 +13,13 @@ import androidx.lifecycle.Observer
 import com.kerumitbsl.core.bean.models.GifObject
 import com.kerumitbsl.core.bean.response.GetGifsResponse
 import com.kerumitbsl.core.bean.response.TestTaskResponse
+import com.kerumitbsl.core.extensions.LIMIT_ON_PAGE
 import com.kerumitbsl.testtasknatife.adapters.MainAdapter
 import com.kerumitbsl.testtasknatife.base.BaseFragment
 import com.kerumitbsl.testtasknatife.databinding.FragmentMainBinding
 import com.kerumitbsl.testtasknatife.extensions.GIFS_REPRESENTATION_COLUMNS
 import com.kerumitbsl.testtasknatife.other.ActivityCommunicator
+import com.kerumitbsl.testtasknatife.other.ScrolledHelper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -49,6 +51,12 @@ class MainFragment : BaseFragment() {
 
     private val observer = Observer<TestTaskResponse<GetGifsResponse>> { updateContent(it) }
 
+    private val scrolledHelper = ScrolledHelper(false, object : ScrolledHelper.OnScrollCallback {
+        override fun onScrolledToEnd() {
+            requestContent()
+        }
+    })
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,6 +82,7 @@ class MainFragment : BaseFragment() {
             findNavController().navigate(MainFragmentDirections.actionNavMainFragmentToNavFullscreenFragment(it))
         }
         binder.mainRecyclerView.adapter = adapter
+        binder.mainRecyclerView.addOnScrollListener(scrolledHelper)
         binder.mainRecyclerView.layoutManager = GridLayoutManager(context, GIFS_REPRESENTATION_COLUMNS)
         binder.mainRecyclerView.itemAnimator = null
     }
@@ -102,6 +111,8 @@ class MainFragment : BaseFragment() {
                 contentList.addAll(response.data.data)
                 adapter.setContent(contentList)
                 activityCommunicator.setContent(contentList)
+                scrolledHelper.setLastPage(response.data.data.size < LIMIT_ON_PAGE)
+                scrolledHelper.loadMore(false)
             }
             is TestTaskResponse.Error -> Toast.makeText(context, response.meta.msg, Toast.LENGTH_SHORT).show()
         }
