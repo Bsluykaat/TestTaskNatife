@@ -11,16 +11,16 @@ class CoreApi : KoinComponent {
 
     private val gifsLoadingComponent: GifsLoadingComponent by inject()
 
-    fun loadGifs(limit: Int, offset: Int, id: String) {
-        gifsLoadingComponent.loadTrending(limit, offset, id)
+    fun loadGifs(limit: Int, offset: Int, rating: String, id: String, bundle: String) {
+        gifsLoadingComponent.loadTrending(limit, offset, rating, id, bundle)
     }
 
     fun getTrendingLiveData(): SingleLiveEvent<TestTaskResponse<GetGifsResponse>> {
         return gifsLoadingComponent.trendingLiveData
     }
 
-    fun searchGifs(limit: Int, offset: Int, id: String, lang: String, q: String) {
-        gifsLoadingComponent.loadSearching(limit, offset, id, lang, q)
+    fun searchGifs(q: String, limit: Int, offset: Int, rating: String, lang: String, id: String, bundle: String) {
+        gifsLoadingComponent.loadSearching(q, limit, offset, rating, lang, id, bundle)
     }
 
     fun getSearchingLiveData(): SingleLiveEvent<TestTaskResponse<GetGifsResponse>> {

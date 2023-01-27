@@ -13,27 +13,25 @@ import retrofit2.http.Query
 
 interface TestTaskApi {
 
-    @FormUrlEncoded
     @GET("gifs/trending")
     fun getTrendedGifs(
         @Query("api_key") api_key: String = GIPHY_INIT_KEY,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-        @Query("rating") rating: String = "g",
+        @Query("rating") rating: String,
         @Query("random_id") random_id: String,
-        @Query("bundle") bundle: String = ""
+        @Query("bundle") bundle: String
     ): GetGifsResponse
 
-    @FormUrlEncoded
     @GET("gifs/search")
     fun getSearchedGifs(
         @Query("api_key") api_key: String = GIPHY_INIT_KEY,
         @Query("q") q: String,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-        @Query("rating") rating: String = "g",
+        @Query("rating") rating: String,
         @Query("lang") lang: String,
         @Query("random_id") random_id: String,
-        @Query("bundle") bundle: String = ""
+        @Query("bundle") bundle: String
     ): GetGifsResponse
 }

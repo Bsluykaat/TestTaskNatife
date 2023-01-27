@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/nav_main_fragment">
+
+    <fragment
+        android:id="@+id/nav_main_fragment"
+        android:name="com.kerumitbsl.testtasknatife.ui.mainFragment.MainFragment"
+        android:label="Gifs from GIPHY service"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_nav_main_fragment_to_nav_fullscreen_fragment"
+            app:destination="@id/nav_fullscreen_fragment"
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fullscreen_fragment"
+        android:name="com.kerumitbsl.testtasknatife.ui.fullscreenFragment.FullscreenFragment"
+        android:label="Gifs from GIPHY service"
+        tools:layout="@layout/fragment_fullscreen">
+
+        <argument
+            android:name="gifObject"
+            app:argType="com.kerumitbsl.core.bean.models.GifObject"/>
+    </fragment>
 
 </navigation>

@@ -14,6 +14,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.TestTaskNatife">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="Theme.TestTaskNatife.Fullscreen" parent="Theme.TestTaskNatife">
         <item name="android:actionBarStyle">
             @style/Widget.Theme.TestTaskNatife.ActionBar.Fullscreen
@@ -25,5 +30,13 @@
     <style name="ThemeOverlay.TestTaskNatife.FullscreenContainer" parent="">
         <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
+
+    <style name="AppTheme.LightTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.LightTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppBarSearchView" parent="Widget.AppCompat.SearchView.ActionBar">
+        <item name="android:textSize">21sp</item>
     </style>
 </resources>

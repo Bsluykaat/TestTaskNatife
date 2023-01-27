@@ -1,5 +1,7 @@
 package com.kerumitbsl.core.components
 
+import android.os.Bundle
+import android.util.Log
 import com.google.gson.Gson
 import com.kerumitbsl.core.components.rest.HttpCommunicationComponent
 import com.kerumitbsl.core.components.rest.TestTaskApi
@@ -26,14 +28,16 @@ class GifsLoadingComponent(
 
     private val service = networkComponent.createTrendingService(TestTaskApi::class.java)
 
-    fun loadTrending(limit: Int, offset: Int, id: String) {
+    fun loadTrending(limit: Int, offset: Int, rating: String, id: String, bundle: String) {
 
-        val rs = service.getTrendedGifs(limit = limit, offset = offset, random_id = id)
+        val rs = service.getTrendedGifs(GIPHY_INIT_KEY, limit, offset, rating, id, bundle)
 
         /*val response = JSONObject(rs.toString())
         if (response.isNotEmpty() && response.getJSONObject("data").isNotEmpty()) {
             TestTaskResponse.Success(gson.fromJson(response.getString("data"), GetGifsResponse::class.java))
         } else TestTaskResponse.Error(gson.fromJson(response.getString("meta"), MetaObject::class.java))*/
+
+        Log.w(TAG, "loadTrending: ${gson.toJson(rs)}")
 
         if (rs.meta.status == "200") {
             trendingLiveData.postValue(TestTaskResponse.Success(rs))
@@ -42,18 +46,25 @@ class GifsLoadingComponent(
         }
     }
 
-    fun loadSearching(limit: Int, offset: Int, id: String, lang: String, q: String) {
+    fun loadSearching(q: String, limit: Int, offset: Int, rating: String, lang: String, id: String, bundle: String) {
 
-        val rs = service.getSearchedGifs(q = q, limit = limit, offset = offset, lang = lang, random_id = id)
+        val rs = service.getSearchedGifs(GIPHY_INIT_KEY, q, limit, offset, rating, lang, id, bundle)
 
         /*val response = JSONObject(rs.toString())
         if (response.isNotEmpty() && response.getJSONObject("data").isNotEmpty()) {
             TestTaskResponse.Success(gson.fromJson(response.getString("data"), GetGifsResponse::class.java))
         } else TestTaskResponse.Error(gson.fromJson(response.getString("meta"), MetaObject::class.java))*/
+
+        Log.w(TAG, "loadSearching: ${gson.toJson(rs)}")
+
         if (rs.meta.status == "200") {
             searchingLiveData.postValue(TestTaskResponse.Success(rs))
         } else {
             searchingLiveData.postValue(TestTaskResponse.Error(rs.meta))
         }
+    }
+
+    companion object {
+        const val TAG = "GifsLoadingComponent"
     }
 }
