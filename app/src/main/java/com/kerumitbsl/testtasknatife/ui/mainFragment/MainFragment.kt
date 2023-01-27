@@ -72,7 +72,6 @@ class MainFragment : BaseFragment() {
 
         adapter.itemClick = {
             findNavController().navigate(MainFragmentDirections.actionNavMainFragmentToNavFullscreenFragment(it))
-            Log.e("itemClick in fragment", "clicked")
         }
         binder.mainRecyclerView.adapter = adapter
         binder.mainRecyclerView.layoutManager = GridLayoutManager(context, GIFS_REPRESENTATION_COLUMNS)

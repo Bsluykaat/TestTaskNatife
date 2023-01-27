@@ -47,7 +47,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MyViewHolder>(), Filterable
         loadGifFromGIPHY(contentList[position], holder.binding.gifRepresentationImageView)
         holder.binding.gifRepresentationImageView.setOnClickListener {
             itemClick(contentList[position])
-            Log.e("itemClick in adapter", "clicked")
         }
     }
 
@@ -66,7 +65,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MyViewHolder>(), Filterable
                     filteredList = permanentContentList
                 } else {
                     for (item in permanentContentList) {
-                        if (item.title.lowercase(Locale.getDefault()).contains(charString)) {
+                        if (item.title?.lowercase(Locale.getDefault())?.contains(charString) == true) {
                             filteredList.add(item)
                         }
                     }

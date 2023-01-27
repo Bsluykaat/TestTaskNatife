@@ -10,7 +10,7 @@ data class FixedHeightObject(
     val height: String,
     val size: String,
     val mp4: String,
-    val mp4Size: String,
+    val mp4_size: String?,
     val webp: String,
     val webp_size: String
 ) : Parcelable

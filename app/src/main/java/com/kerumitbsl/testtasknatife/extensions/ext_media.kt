@@ -16,3 +16,7 @@ fun loadGif(srcUrl: String, imageView: ImageView) {
 fun loadGifFromGIPHY(gifObject: GifObject, gifView: GPHMediaView) {
     gifView.setMediaWithId(gifObject.id, RenditionType.downsized, AppCompatResources.getDrawable(gifView.context, R.drawable.ic_play))
 }
+
+fun loadGifFromGIPHY(id: String, gifView: GPHMediaView) {
+    gifView.setMediaWithId(id, RenditionType.downsized, AppCompatResources.getDrawable(gifView.context, R.drawable.ic_play))
+}
