@@ -11,15 +11,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.lifecycle.Observer
 import com.kerumitbsl.core.bean.models.GifObject
+import com.kerumitbsl.core.bean.models.MetaObject
+import com.kerumitbsl.core.bean.models.PaginationObject
 import com.kerumitbsl.core.bean.response.GetGifsResponse
 import com.kerumitbsl.core.bean.response.TestTaskResponse
 import com.kerumitbsl.core.extensions.LIMIT_ON_PAGE
 import com.kerumitbsl.testtasknatife.adapters.MainAdapter
 import com.kerumitbsl.testtasknatife.base.BaseFragment
 import com.kerumitbsl.testtasknatife.databinding.FragmentMainBinding
+import com.kerumitbsl.testtasknatife.extensions.CACHED_IDS_LIST_KEY
 import com.kerumitbsl.testtasknatife.extensions.GIFS_REPRESENTATION_COLUMNS
+import com.kerumitbsl.testtasknatife.extensions.isNetworkConnected
 import com.kerumitbsl.testtasknatife.other.ActivityCommunicator
 import com.kerumitbsl.testtasknatife.other.ScrolledHelper
+import com.orhanobut.hawk.Hawk
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -89,13 +94,20 @@ class MainFragment : BaseFragment() {
 
     private fun requestContent() {
         binder.mainSwipeRefreshLayout.isRefreshing = true
-        val q = activityCommunicator.getAppBarSearchView().query
-        if (q.isNotEmpty()) {
-            viewModel.requestSearchingGifs(q = q.toString(), id = id)
+        if (isNetworkConnected(requireContext())) {
+            val q = activityCommunicator.getAppBarSearchView().query
+            if (q.isNotEmpty()) {
+                viewModel.requestSearchingGifs(q = q.toString(), id = id)
+            } else {
+                viewModel.requestTrendingGifs(id = id)
+            }
         } else {
-            viewModel.requestTrendingGifs(id = id)
+            updateContent(TestTaskResponse.Success(GetGifsResponse(
+                Hawk.get<MutableList<GifObject>>(CACHED_IDS_LIST_KEY).toTypedArray(),
+                PaginationObject(0, 0, 0),
+                MetaObject("OK", "200", null)
+            )))
         }
-
     }
 
     private fun reloadContent() {
@@ -108,7 +120,7 @@ class MainFragment : BaseFragment() {
     private fun updateContent(response: TestTaskResponse<GetGifsResponse>) {
         when(response) {
             is TestTaskResponse.Success -> {
-                contentList.addAll(response.data.data)
+                contentList.addAll(viewModel.filterContent(response.data.data.toList()))
                 adapter.setContent(contentList)
                 activityCommunicator.setContent(contentList)
                 scrolledHelper.setLastPage(response.data.data.size < LIMIT_ON_PAGE)

@@ -56,8 +56,7 @@ class MainActivity : BaseActivity(), ActivityCommunicator {
     }
 
     override fun setContent(list: List<GifObject>) {
-        viewModel.content.clear()
-        viewModel.content.addAll(list)
+        viewModel.content = list.toMutableList()
     }
 
     override fun getContent(): List<GifObject> = viewModel.content
