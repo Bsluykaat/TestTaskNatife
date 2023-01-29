@@ -10,6 +10,7 @@ class MainActivityViewModel : BaseViewModel() {
     var content = mutableListOf<GifObject>()
     set(value) {
         Hawk.put(CACHED_IDS_LIST_KEY, value)
+        field = value
     }
 
 }

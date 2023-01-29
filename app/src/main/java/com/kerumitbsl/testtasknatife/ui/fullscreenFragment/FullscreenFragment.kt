@@ -14,7 +14,9 @@ import com.kerumitbsl.core.bean.models.GifObject
 import com.kerumitbsl.testtasknatife.R
 import com.kerumitbsl.testtasknatife.base.BaseFragment
 import com.kerumitbsl.testtasknatife.databinding.FragmentFullscreenBinding
+import com.kerumitbsl.testtasknatife.extensions.FORBIDDEN_IDS_LIST_KEY
 import com.kerumitbsl.testtasknatife.other.ActivityCommunicator
+import com.orhanobut.hawk.Hawk
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FullscreenFragment : BaseFragment() {
@@ -26,12 +28,20 @@ class FullscreenFragment : BaseFragment() {
 
     private val adapter: FullscreenPagerAdapter by lazy { FullscreenPagerAdapter(childFragmentManager, lifecycle) }
 
+    private val onDeleteAction: (GifObject) -> Unit = {
+
+        activityCommunicator.setContent(activityCommunicator.getContent().toMutableList().apply { remove(it) })
+        adapter.setContent(activityCommunicator.getContent())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         setupListeners()
+
+        Log.e("count", activityCommunicator.getContent().size.toString())
 
         adapter.setContent(activityCommunicator.getContent())
         binder.fullscreenViewPager.adapter = adapter

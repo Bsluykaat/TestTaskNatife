@@ -3,7 +3,7 @@ package com.kerumitbsl.testtasknatife.install
 import android.app.Application
 import com.kerumitbsl.core.CoreApiBuilder
 import com.kerumitbsl.testtasknatife.AppManager
-import com.kerumitbsl.testtasknatife.ui.fullscreenFragment.FullScreenViewModel
+import com.kerumitbsl.testtasknatife.ui.fullscreenFragment.item.PageItemViewModel
 import com.kerumitbsl.testtasknatife.ui.mainActivity.MainActivityViewModel
 import com.kerumitbsl.testtasknatife.ui.mainFragment.MainViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -22,7 +22,7 @@ class KoinInstaller {
 
     private val viewModelModule = module {
         viewModel { MainActivityViewModel() }
-        viewModel { FullScreenViewModel() }
+        viewModel { PageItemViewModel() }
         viewModel { MainViewModel() }
     }
 

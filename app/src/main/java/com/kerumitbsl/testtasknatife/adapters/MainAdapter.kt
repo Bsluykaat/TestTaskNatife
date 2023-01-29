@@ -14,7 +14,7 @@ import java.util.*
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.MyViewHolder>(), Filterable {
 
-    private val contentList = mutableListOf<GifObject>()
+    val contentList = mutableListOf<GifObject>()
     private val permanentContentList = mutableListOf<GifObject>()
 
     var itemClick: (GifObject) -> Unit = {}

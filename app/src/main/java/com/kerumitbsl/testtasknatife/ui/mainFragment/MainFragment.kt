@@ -59,6 +59,7 @@ class MainFragment : BaseFragment() {
     private val scrolledHelper = ScrolledHelper(false, object : ScrolledHelper.OnScrollCallback {
         override fun onScrolledToEnd() {
             requestContent()
+            Log.e("set content", "set")
         }
     })
 
@@ -81,8 +82,6 @@ class MainFragment : BaseFragment() {
     private fun initialize() {
         binder.mainSwipeRefreshLayout.setOnRefreshListener { reloadContent() }
 
-        binder
-
         adapter.itemClick = {
             findNavController().navigate(MainFragmentDirections.actionNavMainFragmentToNavFullscreenFragment(it))
         }
@@ -101,12 +100,14 @@ class MainFragment : BaseFragment() {
             } else {
                 viewModel.requestTrendingGifs(id = id)
             }
-        } else {
+        } else if (adapter.contentList.isEmpty()) {
             updateContent(TestTaskResponse.Success(GetGifsResponse(
                 Hawk.get<MutableList<GifObject>>(CACHED_IDS_LIST_KEY).toTypedArray(),
                 PaginationObject(0, 0, 0),
                 MetaObject("OK", "200", null)
             )))
+        } else {
+            binder.mainSwipeRefreshLayout.isRefreshing = false
         }
     }
 

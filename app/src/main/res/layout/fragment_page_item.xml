@@ -16,6 +16,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <ImageView
+        android:id="@+id/deleted_state_Image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_bin"
+        android:visibility="gone"/>
+
     <Button
         style="@style/Widget.AppCompat.Button.Borderless"
         android:id="@+id/remove_button"
