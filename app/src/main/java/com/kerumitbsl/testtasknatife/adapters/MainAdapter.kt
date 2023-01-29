@@ -66,7 +66,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MyViewHolder>(), Filterable
                     filteredList = permanentContentList
                 } else {
                     for (item in permanentContentList) {
-                        if (item.title?.lowercase(Locale.getDefault())?.contains(charString) == true) {
+                        if (item.title.lowercase(Locale.getDefault()).contains(charString)) {
                             filteredList.add(item)
                         }
                     }

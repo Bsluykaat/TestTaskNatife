@@ -43,13 +43,13 @@ class MainFragment : BaseFragment() {
 
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
-            viewModel.q = query ?: ""
             reloadContent()
             return false
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
             adapter.filter.filter(newText?.lowercase(Locale.getDefault()))
+            viewModel.q = newText ?: ""
             return true
         }
     }
@@ -59,7 +59,7 @@ class MainFragment : BaseFragment() {
     private val scrolledHelper = ScrolledHelper(false, object : ScrolledHelper.OnScrollCallback {
         override fun onScrolledToEnd() {
             requestContent()
-            Log.e("set content", "set")
+            Log.e("scrolled", "onScrolledToEnd")
         }
     })
 
@@ -139,6 +139,7 @@ class MainFragment : BaseFragment() {
             reloadContent()
             return@setOnCloseListener false
         }
+        activityCommunicator.getAppBarSearchView().setQuery(viewModel.q, true)
     }
 
     override fun onResume() {

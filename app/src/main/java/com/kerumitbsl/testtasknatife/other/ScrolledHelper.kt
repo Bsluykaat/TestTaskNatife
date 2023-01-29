@@ -19,10 +19,6 @@ class ScrolledHelper(
         isLastPage = lastPage
     }
 
-    fun isLoadingMoreSeries(): Boolean {
-        return isLoadingMoreSeries
-    }
-
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         val layoutManager: LinearLayoutManager = Objects

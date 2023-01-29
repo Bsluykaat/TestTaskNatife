@@ -1,4 +1,4 @@
-package com.kerumitbsl.testtasknatife.ui.fullscreenFragment
+package com.kerumitbsl.testtasknatife.adapters
 
 import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment

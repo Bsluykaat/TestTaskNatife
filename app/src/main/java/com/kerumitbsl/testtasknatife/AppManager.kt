@@ -1,8 +1,14 @@
 package com.kerumitbsl.testtasknatife
 
 import android.app.Application
+import android.net.Uri
+import com.facebook.cache.common.CacheKey
 import com.facebook.cache.disk.DiskCacheConfig
+import com.facebook.cache.disk.FileCache
+import com.facebook.imagepipeline.cache.CacheKeyFactory
+import com.facebook.imagepipeline.core.FileCacheFactory
 import com.facebook.imagepipeline.core.ImagePipelineConfig
+import com.facebook.imagepipeline.request.ImageRequest
 import com.giphy.sdk.ui.Giphy
 import com.giphy.sdk.ui.GiphyFrescoHandler
 import com.kerumitbsl.core.bean.models.GifObject
@@ -23,14 +29,16 @@ class AppManager : Application() {
 
         KoinInstaller().install(this)
 
+
         Giphy.configure(this, GIPHY_INIT_KEY, frescoHandler = object : GiphyFrescoHandler {
             override fun handle(imagePipelineConfigBuilder: ImagePipelineConfig.Builder) {
+                // according to documentation
                 imagePipelineConfigBuilder
                     .setMainDiskCacheConfig(
                         DiskCacheConfig.newBuilder(applicationContext)
-                            .setMaxCacheSize(1000)
-                            .setMaxCacheSizeOnLowDiskSpace(500)
-                            .setMaxCacheSizeOnVeryLowDiskSpace(100)
+                            .setMaxCacheSize(1000000)
+                            .setMaxCacheSizeOnLowDiskSpace(500000)
+                            .setMaxCacheSizeOnVeryLowDiskSpace(100000)
                             .build()
                     )
             }

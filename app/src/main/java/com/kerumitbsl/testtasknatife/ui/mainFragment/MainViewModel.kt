@@ -23,9 +23,6 @@ class MainViewModel : BaseViewModel() {
     var lang = "en"
     var id = ""
     var q: String = ""
-        set(value) {
-            requestSearchingGifs(q = value, id = id)
-        }
 
     fun refreshPagination() {
         offset = 0

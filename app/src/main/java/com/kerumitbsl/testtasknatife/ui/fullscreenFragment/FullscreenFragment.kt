@@ -1,23 +1,16 @@
 package com.kerumitbsl.testtasknatife.ui.fullscreenFragment
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.*
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kerumitbsl.core.bean.models.GifObject
-import com.kerumitbsl.testtasknatife.R
+import com.kerumitbsl.testtasknatife.adapters.FullscreenPagerAdapter
 import com.kerumitbsl.testtasknatife.base.BaseFragment
 import com.kerumitbsl.testtasknatife.databinding.FragmentFullscreenBinding
-import com.kerumitbsl.testtasknatife.extensions.FORBIDDEN_IDS_LIST_KEY
 import com.kerumitbsl.testtasknatife.other.ActivityCommunicator
-import com.orhanobut.hawk.Hawk
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FullscreenFragment : BaseFragment() {
 
@@ -40,8 +33,6 @@ class FullscreenFragment : BaseFragment() {
     ): View {
 
         setupListeners()
-
-        Log.e("count", activityCommunicator.getContent().size.toString())
 
         adapter.setContent(activityCommunicator.getContent())
         binder.fullscreenViewPager.adapter = adapter

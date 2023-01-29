@@ -1,12 +1,10 @@
 package com.kerumitbsl.testtasknatife.ui.fullscreenFragment.item
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import com.kerumitbsl.core.bean.models.GifObject
 import com.kerumitbsl.testtasknatife.R
 import com.kerumitbsl.testtasknatife.base.BaseFragment
@@ -14,7 +12,6 @@ import com.kerumitbsl.testtasknatife.databinding.FragmentPageItemBinding
 import com.kerumitbsl.testtasknatife.extensions.FORBIDDEN_IDS_LIST_KEY
 import com.kerumitbsl.testtasknatife.extensions.loadGifFromGIPHY
 import com.orhanobut.hawk.Hawk
-import kotlinx.coroutines.NonCancellable.cancel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
